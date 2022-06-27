@@ -439,10 +439,14 @@ version = "0.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a7f7f71b9a791f0a0fcadab1293bbac19b6872756ca78b630c3d89f6aa93daff"
 dependencies = [
- "proc-macro2",
- "quote",
- "syn",
+    "proc-macro2",
+    "quote",
+    "syn",
 ]
+
+[[package]]
+name = "constants"
+version = "0.1.0"
 
 [[package]]
 name = "convert_case"
@@ -2208,7 +2212,8 @@ checksum = "1df8c4ec4b0627e53bdf214615ad287367e482558cf84b109250b37464dc03ae"
 name = "player-slint"
 version = "0.1.0"
 dependencies = [
- "slint",
+    "constants",
+    "slint",
 ]
 
 [[package]]

@@ -1,9 +1,9 @@
 use slint::SharedString;
 
-use crate::constants::{WINDOW_SCALE, WINDOW_TITLE};
+use constants::constants::{WINDOW_SCALE, WINDOW_TITLE};
+
 use crate::main_window::MainWindow;
 
-pub mod constants;
 pub mod main_window;
 
 fn main() {

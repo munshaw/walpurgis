@@ -1,6 +1,6 @@
 use slint::SharedString;
 
-use crate::constants::*;
+use constants::constants::{WINDOW_HEIGHT, WINDOW_WIDTH};
 
 pub struct MainWindow {
     pub window: ProtoWindow,
