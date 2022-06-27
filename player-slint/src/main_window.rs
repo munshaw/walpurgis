@@ -2,6 +2,8 @@ use slint::SharedString;
 
 use cartridge::cartridge::Cartridge;
 
+slint::include_modules!();
+
 pub struct PlayerSlint {
     pub screen: Screen,
     pub cartridge: Box<dyn Cartridge>,
@@ -33,16 +35,3 @@ impl PlayerSlint {
     }
 }
 
-slint::slint! {
-    Screen := Window {
-        property<int> tile_width;
-        property<int> tile_height;
-        property<int> grid_width;
-        property<int> grid_height;
-        property<string> window_title;
-
-        width: tile_width * grid_width * 1px;
-        height: tile_height * grid_height * 1px;
-        title: window_title;
-    }
-}
