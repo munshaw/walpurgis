@@ -1,12 +1,10 @@
 [package]
-name = "player-slint"
+name = "cartridge-debug"
 version = "0.1.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-slint = "0.2.4"
-constants = { path = "../constants" }
 cartridge = { path = "../cartridge" }
-cartridge-debug = { path = "../cartridge-debug" }
+constants = { path = "../constants" }

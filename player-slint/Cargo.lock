@@ -315,6 +315,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "cartridge"
+version = "0.1.0"
+
+[[package]]
+name = "cartridge-debug"
+version = "0.1.0"
+dependencies = [
+ "cartridge",
+ "constants",
+]
+
+[[package]]
 name = "cc"
 version = "1.0.73"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -439,9 +451,9 @@ version = "0.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a7f7f71b9a791f0a0fcadab1293bbac19b6872756ca78b630c3d89f6aa93daff"
 dependencies = [
-    "proc-macro2",
-    "quote",
-    "syn",
+ "proc-macro2",
+ "quote",
+ "syn",
 ]
 
 [[package]]
@@ -2212,8 +2224,10 @@ checksum = "1df8c4ec4b0627e53bdf214615ad287367e482558cf84b109250b37464dc03ae"
 name = "player-slint"
 version = "0.1.0"
 dependencies = [
-    "constants",
-    "slint",
+ "cartridge",
+ "cartridge-debug",
+ "constants",
+ "slint",
 ]
 
 [[package]]
