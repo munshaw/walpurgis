@@ -1,9 +1,6 @@
 use cartridge_debug::cartridge_debug::CartridgeDebug;
 use constants::constants::{WINDOW_SCALE, WINDOW_TITLE};
-
-use crate::main_window::PlayerSlint;
-
-pub mod main_window;
+use player_slint::player_slint::PlayerSlint;
 
 fn main() {
     PlayerSlint::new(
