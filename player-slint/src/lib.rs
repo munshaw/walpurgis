@@ -1,2 +1,2 @@
-/// Player written in splint for playing cartridges
+/// Player written in slint for playing a Cartridge
 pub mod player_slint;

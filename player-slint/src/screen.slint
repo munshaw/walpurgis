@@ -1,11 +1,34 @@
-Screen := Window {
-    property<int> tile_width;
-    property<int> tile_height;
-    property<int> grid_width;
-    property<int> grid_height;
-    property<string> window_title;
+struct Tile := {
+  image: image
+}
 
-    width: tile_width * grid_width * 1px;
-    height: tile_height * grid_height * 1px;
-    title: window_title;
+TileRec := Rectangle {
+  background: #000000; // TODO this is for debugging
+  property<image> image;
+
+  Image {
+    source: image;
+  }
+}
+
+Screen := Window {
+  property<int> tile_width;
+  property<int> tile_height;
+  property<int> grid_width;
+  property<int> grid_height;
+  property<string> window_title;
+
+  width: tile_width * grid_width * 1px;
+  height: tile_height * grid_height * 1px;
+  title: window_title;
+
+  property<[Tile]> tiles:[];
+
+  for tile[i] in tiles : TileRec {
+    width: tile_width * 1px;
+    height: tile_height * 1px;
+    x: mod(i, grid_width) * tile_width * 1px;
+    y: floor(i / grid_height) * tile_height * 1px;
+    image: tile.image;
+  }
 }
