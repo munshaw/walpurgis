@@ -1,5 +1,5 @@
 struct Tile := {
-  image: image
+  //image: image
 }
 
 TileRec := Rectangle {
@@ -28,7 +28,7 @@ Screen := Window {
     width: tile_width * 1px;
     height: tile_height * 1px;
     x: mod(i, grid_width) * tile_width * 1px;
-    y: floor(i / grid_height) * tile_height * 1px;
-    image: tile.image;
+    y: floor(i / grid_width) * tile_height * 1px;
+    //image: tile.image;
   }
 }
