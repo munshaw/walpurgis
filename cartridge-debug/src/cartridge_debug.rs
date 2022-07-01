@@ -11,11 +11,11 @@ impl CartridgeDebug {
 }
 
 impl Cartridge for CartridgeDebug {
-    fn get_tile_size(&self) -> (u32, u32) {
+    fn get_tile_size(&self) -> (usize, usize) {
         (TILE_WIDTH, TILE_HEIGHT)
     }
 
-    fn get_grid_size(&self) -> (u32, u32) {
+    fn get_grid_size(&self) -> (usize, usize) {
         (GRID_WIDTH, GRID_HEIGHT)
     }
 }
