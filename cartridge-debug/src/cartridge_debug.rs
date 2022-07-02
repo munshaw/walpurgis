@@ -1,7 +1,7 @@
 use cartridge::cartridge::Cartridge;
 use constants::constants::{GRID_HEIGHT, GRID_WIDTH, TILE_HEIGHT, TILE_WIDTH};
 
-/// Cartridge for debugging players.
+/// `Cartridge` for debugging `Player`s.
 pub struct CartridgeDebug {}
 
 impl CartridgeDebug {
