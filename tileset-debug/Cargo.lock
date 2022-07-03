@@ -3,6 +3,10 @@
 version = 3
 
 [[package]]
+name = "pixmap"
+version = "0.1.0"
+
+[[package]]
 name = "tileset"
 version = "0.1.0"
 
@@ -10,5 +14,6 @@ version = "0.1.0"
 name = "tileset-debug"
 version = "0.1.0"
 dependencies = [
+ "pixmap",
  "tileset",
 ]

@@ -7,3 +7,4 @@ edition = "2021"
 
 [dependencies]
 tileset = { path = "../tileset" }
+pixmap = { path = "../pixmap" }
