@@ -10,6 +10,7 @@ build = "build.rs"
 slint = "0.2.4"
 constants = { path = "../constants" }
 cartridge = { path = "../cartridge" }
+tileset = { path = "../tileset" }
 
 [build-dependencies]
 slint-build = "0.2.4"

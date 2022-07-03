@@ -1,6 +1,5 @@
-use std::collections::HashMap;
-use tileset::tileset::{Sprite, Tileset};
 use pixmap::pixmap::PixMap;
+use tileset::tileset::{Sprite, Tileset};
 
 /// `Tileset` for debugging `Player` manually.
 pub struct TilesetDebug {}
@@ -8,17 +7,17 @@ pub struct TilesetDebug {}
 /// Iterator for `Tileset debug`
 pub struct TilesetDebugIntoIter {
     is_first: bool,
-    pixmap: PixMap
+    pixmap: PixMap,
 }
 
 impl TilesetDebugIntoIter {
     pub fn new() -> Self {
-        TilesetDebugIntoIter {
+        Self {
             is_first: true,
             pixmap: PixMap {
                 colours: vec![
                     (' ', (0x00, 0x00, 0x00, 0xff)),
-                    ('.', (0x22, 0x44, 0x66, 0xff))
+                    ('.', (0x22, 0x44, 0x66, 0xff)),
                 ],
                 pixels: "\
                 .       \
@@ -28,8 +27,9 @@ impl TilesetDebugIntoIter {
                     .   \
                      .  \
                       . \
-                       .".to_string()
-            }
+                       ."
+                .to_string(),
+            },
         }
     }
 }
@@ -40,7 +40,7 @@ impl Iterator for TilesetDebugIntoIter {
     fn next(&mut self) -> Option<Self::Item> {
         if self.is_first {
             self.is_first = false;
-            Some(("slash".to_string(), self.pixmap.to_rgba8()))
+            Some((0, self.pixmap.to_rgba8()))
         } else {
             None
         }
@@ -49,7 +49,7 @@ impl Iterator for TilesetDebugIntoIter {
 
 impl TilesetDebug {
     pub fn new() -> Self {
-        TilesetDebug {}
+        Self {}
     }
 }
 

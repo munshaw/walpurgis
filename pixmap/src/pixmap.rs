@@ -7,7 +7,7 @@ pub struct PixMap {
     pub colours: Vec<(char, (u8, u8, u8, u8))>,
 
     /// String of characters to form image.
-    pub pixels: String
+    pub pixels: String,
 }
 
 impl PixMap {

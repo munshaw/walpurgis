@@ -7,8 +7,7 @@ fn main() {
     PlayerSlint::new(
         WINDOW_TITLE,
         WINDOW_SCALE,
-        Box::new(CartridgeDebug::new(
-            Box::new(TilesetDebug::new())
-        )),
+        Box::new(CartridgeDebug::new()),
+        Box::new(TilesetDebug::new()),
     ).run();
 }

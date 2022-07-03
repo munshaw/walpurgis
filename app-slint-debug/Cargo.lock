@@ -340,7 +340,6 @@ version = "0.1.0"
 dependencies = [
  "cartridge",
  "constants",
- "tileset",
 ]
 
 [[package]]
@@ -2269,6 +2268,7 @@ dependencies = [
  "constants",
  "slint",
  "slint-build",
+ "tileset",
 ]
 
 [[package]]
