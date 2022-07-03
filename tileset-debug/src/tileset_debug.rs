@@ -1,4 +1,4 @@
-use tileset::tileset::{Sprite, Tileset, TilesetIntoIter};
+use tileset::tileset::{Sprite, Tileset};
 
 /// `Tileset` for debugging `Player` manually.
 pub struct TilesetDebug {}
@@ -29,8 +29,6 @@ impl Iterator for TilesetDebugIntoIter {
     }
 }
 
-impl TilesetIntoIter for TilesetDebugIntoIter {}
-
 impl TilesetDebug {
     pub fn new() -> Self {
         TilesetDebug {}
@@ -39,7 +37,7 @@ impl TilesetDebug {
 
 impl IntoIterator for TilesetDebug {
     type Item = Sprite;
-    type IntoIter = Box<dyn TilesetIntoIter>;
+    type IntoIter = Box<dyn Iterator<Item = Sprite>>;
 
     fn into_iter(self) -> Self::IntoIter {
         Box::new(TilesetDebugIntoIter::new())
