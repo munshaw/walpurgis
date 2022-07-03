@@ -12,14 +12,11 @@ pub struct TilesetDebugIntoIter {
 
 impl TilesetDebugIntoIter {
     pub fn new() -> Self {
-        Self {
-            is_first: true,
-            pixmap: PixMap {
-                colours: vec![
-                    (' ', (0x00, 0x00, 0x00, 0xff)),
-                    ('.', (0x22, 0x44, 0x66, 0xff)),
-                ],
-                pixels: "\
+        let pixmap = PixMap::new(
+            vec![
+                (' ', (0x00, 0x00, 0x00, 0xff)),
+                ('.', (0x22, 0x44, 0x66, 0xff)),
+            ], "\
                 .       \
                  .      \
                   .     \
@@ -27,9 +24,11 @@ impl TilesetDebugIntoIter {
                     .   \
                      .  \
                       . \
-                       ."
-                .to_string(),
-            },
+                       .");
+
+        match pixmap {
+            Ok(pixmap) => Self { is_first: true, pixmap },
+            Err(e) => panic!("{:?}", e)
         }
     }
 }
