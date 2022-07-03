@@ -1,5 +1,5 @@
 [package]
-name = "walpurgis"
+name = "app-slint-debug"
 version = "0.1.0"
 edition = "2021"
 
@@ -9,3 +9,4 @@ edition = "2021"
 player-slint = { path = "../player-slint" }
 constants = { path = "../constants" }
 cartridge-debug = { path = "../cartridge-debug" }
+tileset-debug = { path = "../tileset-debug" }

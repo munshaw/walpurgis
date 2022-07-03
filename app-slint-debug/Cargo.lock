@@ -59,6 +59,16 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "000444226fcff248f2bc4c7625be32c63caccfecc2723a2b9f78a7487a49c407"
 
 [[package]]
+name = "app-slint-debug"
+version = "0.1.0"
+dependencies = [
+ "cartridge-debug",
+ "constants",
+ "player-slint",
+ "tileset-debug",
+]
+
+[[package]]
 name = "arrayref"
 version = "0.3.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -330,6 +340,7 @@ version = "0.1.0"
 dependencies = [
  "cartridge",
  "constants",
+ "tileset",
 ]
 
 [[package]]
@@ -3083,6 +3094,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "tileset"
+version = "0.1.0"
+
+[[package]]
+name = "tileset-debug"
+version = "0.1.0"
+dependencies = [
+ "tileset",
+]
+
+[[package]]
 name = "tiny-skia"
 version = "0.6.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3351,15 +3373,6 @@ name = "waker-fn"
 version = "1.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9d5b2c62b4012a3e1eca5a7e077d13b3bf498c4073e33ccd58626607748ceeca"
-
-[[package]]
-name = "walpurgis"
-version = "0.1.0"
-dependencies = [
- "cartridge-debug",
- "constants",
- "player-slint",
-]
 
 [[package]]
 name = "wasi"
