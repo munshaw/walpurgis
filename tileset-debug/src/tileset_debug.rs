@@ -16,10 +16,10 @@ impl TilesetDebugIntoIter {
         TilesetDebugIntoIter {
             is_first: true,
             pixmap: PixMap {
-                colours: HashMap::from([
+                colours: vec![
                     (' ', (0x00, 0x00, 0x00, 0xff)),
                     ('.', (0x22, 0x44, 0x66, 0xff))
-                ]),
+                ],
                 pixels: "\
                 .       \
                  .      \

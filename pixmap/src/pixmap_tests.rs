@@ -4,7 +4,7 @@ use crate::pixmap::PixMap;
 #[test]
 fn decode_black_test() {
     let pixmap = PixMap {
-        colours: HashMap::from([('.', (0x00, 0x00, 0x00, 0xff))]),
+        colours: vec![('.', (0x00, 0x00, 0x00, 0xff))],
         pixels: "....".to_string()
     };
 
