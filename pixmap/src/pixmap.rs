@@ -4,7 +4,7 @@ use std::collections::{HashMap, HashSet};
 #[derive(Debug)]
 pub enum Error {
     /// PixMap `pixels` string contains a character unregistered in `colours`.
-    UnregisteredPixel
+    UnregisteredPixel,
 }
 
 /// Represents an rgba colour, in that order.
@@ -12,25 +12,31 @@ pub type Rgba = (u8, u8, u8, u8);
 
 /// This represents image data, simular to XPM. Dimensional information is not stored
 /// since all tile sprites have the same size. See tests for examples.
+#[derive(Debug)]
 pub struct PixMap {
     colours: Vec<(char, Rgba)>,
     pixels: String,
 }
 
 impl PixMap {
-   /// Create new `PixMap`.
-   /// # Arguments
-   /// `colours` registers each character with a colour, and `pixels`
-   /// are a string of characters, allowing you to draw in ascii.
-   pub fn new(colours: Vec<(char, Rgba)>, pixels: &str) -> Result<Self, Error> {
-       let mut colour_set = HashSet::new();
-       colours.iter().for_each(|c| { colour_set.insert(c.0); });
-       if pixels.chars().all(|c| colour_set.contains(&c)) {
-           Ok(Self { colours, pixels: pixels.to_string() })
-       } else {
-           Err(Error::UnregisteredPixel)
-       }
-   }
+    /// Create new `PixMap`.
+    /// # Arguments
+    /// `colours` registers each character with a colour, and `pixels`
+    /// are a string of characters, allowing you to draw in ascii.
+    pub fn new(colours: Vec<(char, Rgba)>, pixels: &str) -> Result<Self, Error> {
+        let mut colour_set = HashSet::new();
+        colours.iter().for_each(|c| {
+            colour_set.insert(c.0);
+        });
+        if pixels.chars().all(|c| colour_set.contains(&c)) {
+            Ok(Self {
+                colours,
+                pixels: pixels.to_string(),
+            })
+        } else {
+            Err(Error::UnregisteredPixel)
+        }
+    }
 
     /// Uncompress into to raw rgba8 information.
     pub fn to_rgba8(&self) -> Vec<u8> {

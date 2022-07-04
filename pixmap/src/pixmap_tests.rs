@@ -1,18 +1,15 @@
-use crate::pixmap::{Error, PixMap};
+use crate::pixmap::PixMap;
 
 #[test]
 fn to_rgba8_success_test() {
     let pixmap = PixMap::new(
-        vec![('.', (0x00, 0x00, 0x00, 0xff))], "\
+        vec![('.', (0x00, 0x00, 0x00, 0xff))],
+        "\
         ..\
-        .."
+        ..",
     );
 
-    let result;
-    match pixmap {
-        Ok(r) => result = r.to_rgba8(),
-        Err(_) => panic!()
-    }
+    let result = pixmap.unwrap().to_rgba8();
 
     let expected = vec![0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255];
 
@@ -22,13 +19,13 @@ fn to_rgba8_success_test() {
 #[test]
 fn to_rgba8_fail_test() {
     let pixmap = PixMap::new(
-        vec![('.', (0x00, 0x00, 0x00, 0xff))], "\
+        vec![('.', (0x00, 0x00, 0x00, 0xff))],
+        "\
         .!\
-        .."
+        ..",
     );
 
-    match pixmap {
-        Ok(_) => panic!(),
-        Err(_) => ()
+    if let Ok(_) = pixmap {
+        panic!()
     }
 }

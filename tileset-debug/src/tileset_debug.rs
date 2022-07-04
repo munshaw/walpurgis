@@ -2,21 +2,23 @@ use pixmap::pixmap::PixMap;
 use tileset::tileset::{Sprite, Tileset};
 
 /// `Tileset` for debugging `Player` manually.
+#[derive(Debug)]
 pub struct TilesetDebug {}
 
-/// Iterator for `Tileset debug`
-pub struct TilesetDebugIntoIter {
+#[derive(Debug)]
+struct TilesetDebugIntoIter {
     is_first: bool,
     pixmap: PixMap,
 }
 
 impl TilesetDebugIntoIter {
-    pub fn new() -> Self {
+    fn new() -> Self {
         let pixmap = PixMap::new(
             vec![
                 (' ', (0x00, 0x00, 0x00, 0xff)),
                 ('.', (0x22, 0x44, 0x66, 0xff)),
-            ], "\
+            ],
+            "\
                 .       \
                  .      \
                   .     \
@@ -24,11 +26,12 @@ impl TilesetDebugIntoIter {
                     .   \
                      .  \
                       . \
-                       .");
-
-        match pixmap {
-            Ok(pixmap) => Self { is_first: true, pixmap },
-            Err(e) => panic!("{:?}", e)
+                       .",
+        )
+        .unwrap();
+        Self {
+            is_first: true,
+            pixmap,
         }
     }
 }
