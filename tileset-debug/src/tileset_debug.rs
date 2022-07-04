@@ -30,7 +30,7 @@ impl TilesetDebugIntoIter {
             ......X.\
             .......X",
         )
-        .unwrap();
+        .unwrap(); // This won't fail if tests pass.
         Self {
             is_first: true,
             pixmap,

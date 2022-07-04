@@ -1,4 +1,4 @@
-use crate::pixmap::PixMap;
+use crate::pixmap::{Error, PixMap};
 use std::rc::Rc;
 
 #[test]
@@ -20,7 +20,7 @@ fn to_rgba8_success_test() {
 }
 
 #[test]
-fn to_rgba8_fail_test() {
+fn to_rgba8_unregistered_character_test() {
     let palette = Rc::new(vec![('.', (0x00, 0x00, 0x00, 0xff))]);
     let pixmap = PixMap::new(
         palette,
@@ -29,7 +29,27 @@ fn to_rgba8_fail_test() {
         ..",
     );
 
-    if let Ok(_) = pixmap {
+    if let Err(Error::UnregisteredPixel) = pixmap {
+    } else {
+        panic!()
+    }
+}
+
+#[test]
+fn to_rgba8_duplicate_character_test() {
+    let palette = Rc::new(vec![
+        ('.', (0x00, 0x00, 0x00, 0xff)),
+        ('.', (0x11, 0x11, 0x11, 0xff)),
+    ]);
+    let pixmap = PixMap::new(
+        palette,
+        "\
+        ..\
+        ..",
+    );
+
+    if let Err(Error::DuplicateCharacter) = pixmap {
+    } else {
         panic!()
     }
 }

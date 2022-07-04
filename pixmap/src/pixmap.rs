@@ -6,6 +6,9 @@ use std::rc::Rc;
 pub enum Error {
     /// PixMap `pixels` string contains a character unregistered in `palette`.
     UnregisteredPixel,
+
+    /// PixMap `palette` contains a character thats registered twice.
+    DuplicateCharacter,
 }
 
 /// Represents an rgba colour, in that order.
@@ -28,15 +31,17 @@ impl PixMap {
     pub fn new(palette: Rc<Vec<(char, Rgba)>>, pixels: &str) -> Result<Self, Error> {
         // Check if all characters in pixels is registered in the palette.
         let mut colour_set = HashSet::new();
-        palette.iter().all(|c| colour_set.insert(c.0));
-        if pixels.chars().all(|c| colour_set.contains(&c)) {
-            Ok(Self {
-                palette: palette,
-                pixels: pixels.to_string(),
-            })
-        } else {
-            Err(Error::UnregisteredPixel)
+        if !palette.iter().all(|c| colour_set.insert(c.0)) {
+            return Err(Error::DuplicateCharacter);
         }
+        if !pixels.chars().all(|c| colour_set.contains(&c)) {
+            return Err(Error::UnregisteredPixel);
+        }
+
+        Ok(Self {
+            palette: palette,
+            pixels: pixels.to_string(),
+        })
     }
 
     /// Uncompress into to raw rgba8 information.
