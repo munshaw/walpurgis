@@ -46,7 +46,7 @@ impl PixMap {
             colour_map.insert(colour.0, colour.1);
         }
 
-        let mut rgba8 = Vec::new();
+        let mut rgba8 = Vec::with_capacity(4 * self.pixels.chars().count());
         for pix in self.pixels.chars() {
             let pix_colour = colour_map[&pix];
             rgba8.append(vec![pix_colour.0, pix_colour.1, pix_colour.2, pix_colour.3].as_mut());
