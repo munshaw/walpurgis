@@ -1,4 +1,5 @@
 use pixmap::pixmap::PixMap;
+use std::rc::Rc;
 use tileset::tileset::{Sprite, Tileset};
 
 /// `Tileset` for debugging `Player` manually.
@@ -13,11 +14,12 @@ struct TilesetDebugIntoIter {
 
 impl TilesetDebugIntoIter {
     fn new() -> Self {
+        let palette = Rc::new(vec![
+            ('.', (0x00, 0x00, 0x00, 0xff)),
+            ('X', (0x33, 0x99, 0xcc, 0xff)),
+        ]);
         let pixmap = PixMap::new(
-            vec![
-                ('.', (0x00, 0x00, 0x00, 0xff)),
-                ('X', (0x22, 0x44, 0x66, 0xff)),
-            ],
+            palette.clone(),
             "\
             X.......\
             .X......\

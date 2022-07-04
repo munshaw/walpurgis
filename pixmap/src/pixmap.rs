@@ -1,4 +1,5 @@
 use std::collections::{HashMap, HashSet};
+use std::rc::Rc;
 
 /// Errors for `PixMap`
 #[derive(Debug)]
@@ -14,7 +15,7 @@ pub type Rgba = (u8, u8, u8, u8);
 /// since all tile sprites have the same size. See tests for examples.
 #[derive(Debug)]
 pub struct PixMap {
-    palette: Vec<(char, Rgba)>,
+    palette: Rc<Vec<(char, Rgba)>>,
     pixels: String,
 }
 
@@ -22,12 +23,12 @@ impl PixMap {
     /// Create new `PixMap`.
     /// # Arguments
     /// `palette` registers each character with a colour, and `pixels`
-    /// are a string of characters, allowing you to draw in ascii.
-    pub fn new(palette: Vec<(char, Rgba)>, pixels: &str) -> Result<Self, Error> {
+    /// are a string of characters, allowing you to draw in ascii. Dimensional
+    /// information is not tracked.
+    pub fn new(palette: Rc<Vec<(char, Rgba)>>, pixels: &str) -> Result<Self, Error> {
+        // Check if all characters in pixels is registered in the palette.
         let mut colour_set = HashSet::new();
-        palette.iter().for_each(|c| {
-            colour_set.insert(c.0);
-        });
+        palette.iter().all(|c| colour_set.insert(c.0));
         if pixels.chars().all(|c| colour_set.contains(&c)) {
             Ok(Self {
                 palette: palette,
@@ -41,7 +42,7 @@ impl PixMap {
     /// Uncompress into to raw rgba8 information.
     pub fn to_rgba8(&self) -> Vec<u8> {
         let mut colour_map = HashMap::new();
-        for colour in &self.palette {
+        for colour in self.palette.iter() {
             colour_map.insert(colour.0, colour.1);
         }
 

@@ -1,9 +1,12 @@
 use crate::pixmap::PixMap;
+use std::rc::Rc;
 
 #[test]
 fn to_rgba8_success_test() {
+    let palette = Rc::new(vec![('.', (0x00, 0x00, 0x00, 0xff))]);
+
     let pixmap = PixMap::new(
-        vec![('.', (0x00, 0x00, 0x00, 0xff))],
+        palette,
         "\
         ..\
         ..",
@@ -18,8 +21,9 @@ fn to_rgba8_success_test() {
 
 #[test]
 fn to_rgba8_fail_test() {
+    let palette = Rc::new(vec![('.', (0x00, 0x00, 0x00, 0xff))]);
     let pixmap = PixMap::new(
-        vec![('.', (0x00, 0x00, 0x00, 0xff))],
+        palette,
         "\
         .!\
         ..",
