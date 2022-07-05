@@ -1,4 +1,5 @@
-/// Allows you to draw pixmaps using strings simular to XPM. Exports to rgba8.
+/// Module containing `pixmap_to_rgba8()` function. Used to render XPM-like data
+/// to raw rgba8 data. Serves as a convenient way to draw pixmaps in source code.
 pub mod pixmap;
 
 #[cfg(test)]

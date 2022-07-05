@@ -1,14 +1,16 @@
+use cartridge::cartridge::Cartridge;
 use slint::{SharedString, VecModel};
 use std::rc::Rc;
-use cartridge::cartridge::Cartridge;
 use tileset::tileset::Tileset;
 
 slint::include_modules!();
 
+/// Insert a `Cartridge` and some stuff into this slint-based `Player`,
+/// and play your game!
 pub struct PlayerSlint {
     pub screen: Screen,
     pub cartridge: Box<dyn Cartridge>,
-    pub tileset: Box<dyn Tileset>
+    pub tileset: Box<dyn Tileset>,
 }
 
 impl PlayerSlint {
@@ -16,7 +18,7 @@ impl PlayerSlint {
         title: &str,
         scale: f32,
         cartridge: Box<dyn Cartridge>,
-        tileset: Box<dyn Tileset>
+        tileset: Box<dyn Tileset>,
     ) -> Self {
         let screen = Screen::new();
 
@@ -36,9 +38,14 @@ impl PlayerSlint {
         let tiles_model = Rc::new(VecModel::from(tiles));
         screen.set_tiles(tiles_model.clone().into());
 
-        Self { screen, cartridge, tileset }
+        Self {
+            screen,
+            cartridge,
+            tileset,
+        }
     }
 
+    /// Consider this to be the 'on' button.
     pub fn run(&self) {
         self.screen.run();
     }

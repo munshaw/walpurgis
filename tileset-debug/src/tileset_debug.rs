@@ -1,5 +1,5 @@
-use pixmap::pixmap::PixMap;
-use std::rc::Rc;
+use pixmap::pixmap::{pixmap_to_rgba8, Rgba8};
+use std::collections::HashMap;
 use tileset::tileset::{Sprite, Tileset};
 
 /// `Tileset` for debugging `Player` manually.
@@ -9,18 +9,19 @@ pub struct TilesetDebug {}
 #[derive(Debug)]
 struct TilesetDebugIntoIter {
     is_first: bool,
-    pixmap: PixMap,
+    palette: HashMap<char, Rgba8>,
+    pixels: &'static str,
 }
 
 impl TilesetDebugIntoIter {
     fn new() -> Self {
-        let palette = Rc::new(vec![
-            ('.', (0x00, 0x00, 0x00, 0xff)),
-            ('X', (0x33, 0x99, 0xcc, 0xff)),
-        ]);
-        let pixmap = PixMap::new(
-            palette.clone(),
-            "\
+        let mut palette = HashMap::new();
+        palette.insert('.', (0x00, 0x00, 0x00, 0xff));
+        palette.insert('X', (0x33, 0x99, 0xcc, 0xff));
+        Self {
+            is_first: true,
+            palette,
+            pixels: "\
             X.......\
             .X......\
             ..X.....\
@@ -29,11 +30,6 @@ impl TilesetDebugIntoIter {
             .....X..\
             ......X.\
             .......X",
-        )
-        .unwrap(); // This won't fail if tests pass.
-        Self {
-            is_first: true,
-            pixmap,
         }
     }
 }
@@ -44,7 +40,8 @@ impl Iterator for TilesetDebugIntoIter {
     fn next(&mut self) -> Option<Self::Item> {
         if self.is_first {
             self.is_first = false;
-            Some((0, self.pixmap.to_rgba8()))
+            // If tests pass then unwrap will not fail.
+            Some((0, pixmap_to_rgba8(&self.palette, self.pixels).unwrap()))
         } else {
             None
         }
