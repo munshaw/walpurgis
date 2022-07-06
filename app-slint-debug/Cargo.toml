@@ -7,6 +7,5 @@ edition = "2021"
 
 [dependencies]
 player-slint = { path = "../player-slint" }
-constants = { path = "../constants" }
 cartridge-debug = { path = "../cartridge-debug" }
 tileset-debug = { path = "../tileset-debug" }

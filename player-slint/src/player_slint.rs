@@ -1,5 +1,5 @@
 use cartridge::cartridge::Cartridge;
-use slint::{SharedString, VecModel};
+use slint::VecModel;
 use std::rc::Rc;
 use tileset::tileset::Tileset;
 
@@ -14,12 +14,7 @@ pub struct PlayerSlint {
 }
 
 impl PlayerSlint {
-    pub fn new(
-        title: &str,
-        scale: f32,
-        cartridge: Box<dyn Cartridge>,
-        tileset: Box<dyn Tileset>,
-    ) -> Self {
+    pub fn new(scale: f32, cartridge: Box<dyn Cartridge>, tileset: Box<dyn Tileset>) -> Self {
         let screen = Screen::new();
 
         let (tile_width, tile_height) = tileset.get_tile_size();
@@ -27,8 +22,6 @@ impl PlayerSlint {
 
         let tile_width = (tile_width as f32 * scale) as i32;
         let tile_height = (tile_height as f32 * scale) as i32;
-
-        screen.set_window_title(SharedString::from(title));
         screen.set_tile_width(tile_width);
         screen.set_tile_height(tile_height);
         screen.set_grid_width(grid_width as i32);

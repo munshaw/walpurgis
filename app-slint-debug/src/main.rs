@@ -1,13 +1,15 @@
 use cartridge_debug::cartridge_debug::CartridgeDebug;
-use constants::constants::{WINDOW_SCALE, WINDOW_TITLE};
 use player_slint::player_slint::PlayerSlint;
+
 use tileset_debug::tileset_debug::TilesetDebug;
+
+const SCALE: f32 = 2.0;
 
 fn main() {
     PlayerSlint::new(
-        WINDOW_TITLE,
-        WINDOW_SCALE,
+        SCALE,
         Box::new(CartridgeDebug::new()),
         Box::new(TilesetDebug::new()),
-    ).run();
+    )
+    .run();
 }

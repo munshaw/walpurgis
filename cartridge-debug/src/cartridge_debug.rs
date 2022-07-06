@@ -1,5 +1,9 @@
 use cartridge::cartridge::Cartridge;
-use constants::constants::{GRID_HEIGHT, GRID_WIDTH};
+
+pub const WINDOW_TITLE: &str = "Debug Cartridge";
+
+pub const GRID_WIDTH: usize = 20;
+pub const GRID_HEIGHT: usize = 18;
 
 /// `Cartridge` for debugging `Player`s.
 #[derive(Debug)]
@@ -14,5 +18,9 @@ impl CartridgeDebug {
 impl Cartridge for CartridgeDebug {
     fn get_grid_size(&self) -> (usize, usize) {
         (GRID_WIDTH, GRID_HEIGHT)
+    }
+
+    fn get_window_title(&self) -> &str {
+        WINDOW_TITLE
     }
 }

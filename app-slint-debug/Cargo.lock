@@ -63,7 +63,6 @@ name = "app-slint-debug"
 version = "0.1.0"
 dependencies = [
  "cartridge-debug",
- "constants",
  "player-slint",
  "tileset-debug",
 ]
@@ -339,7 +338,6 @@ name = "cartridge-debug"
 version = "0.1.0"
 dependencies = [
  "cartridge",
- "constants",
 ]
 
 [[package]]
@@ -481,10 +479,6 @@ dependencies = [
  "quote",
  "syn",
 ]
-
-[[package]]
-name = "constants"
-version = "0.1.0"
 
 [[package]]
 name = "convert_case"
@@ -2265,7 +2259,6 @@ name = "player-slint"
 version = "0.1.0"
 dependencies = [
  "cartridge",
- "constants",
  "slint",
  "slint-build",
  "tileset",
