@@ -1,5 +1,5 @@
 use cartridge::cartridge::Cartridge;
-use slint::VecModel;
+use slint::{SharedString, VecModel};
 use std::rc::Rc;
 use tileset::tileset::Tileset;
 
@@ -20,6 +20,7 @@ impl PlayerSlint {
         let (tile_width, tile_height) = tileset.get_tile_size();
         let (grid_width, grid_height) = cartridge.get_grid_size();
 
+        screen.set_window_title(SharedString::from(cartridge.get_window_title()));
         let tile_width = (tile_width as f32 * scale) as i32;
         let tile_height = (tile_height as f32 * scale) as i32;
         screen.set_tile_width(tile_width);
