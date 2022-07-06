@@ -7,14 +7,22 @@ slint::include_modules!();
 
 /// Insert a `Cartridge` and some stuff into this slint-based `Player`,
 /// and play your game!
-pub struct PlayerSlint {
+pub struct PlayerSlint<C>
+where
+    C: Cartridge,
+{
     pub screen: Screen,
-    pub cartridge: Box<dyn Cartridge>,
-    pub tileset: Box<dyn Tileset>,
+    pub cartridge: C,
 }
 
-impl PlayerSlint {
-    pub fn new(scale: f32, cartridge: Box<dyn Cartridge>, tileset: Box<dyn Tileset>) -> Self {
+impl<C> PlayerSlint<C>
+where
+    C: Cartridge,
+{
+    pub fn new<T>(scale: f32, cartridge: C, tileset: T) -> Self
+    where
+        T: Tileset,
+    {
         let screen = Screen::new();
 
         let (tile_width, tile_height) = tileset.get_tile_size();
@@ -32,11 +40,7 @@ impl PlayerSlint {
         let tiles_model = Rc::new(VecModel::from(tiles));
         screen.set_tiles(tiles_model.clone().into());
 
-        Self {
-            screen,
-            cartridge,
-            tileset,
-        }
+        Self { screen, cartridge }
     }
 
     /// Consider this to be the 'on' button.
