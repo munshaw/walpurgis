@@ -1,13 +1,18 @@
 struct Tile := {
-  //image: image
+  image: image
 }
 
 TileRec := Rectangle {
-  background: #000000; // TODO this is for debugging
   property<image> image;
+  property<length> image_width;
+  property<length> image_height;
 
   Image {
     source: image;
+    image-fit: cover;
+    image-rendering: pixelated;
+    width: image_width;
+    height: image_height;
   }
 }
 
@@ -17,18 +22,17 @@ Screen := Window {
   property<int> grid_width;
   property<int> grid_height;
   property<string> window_title;
+  property<[Tile]> tiles: [];
 
   width: tile_width * grid_width * 1px;
   height: tile_height * grid_height * 1px;
   title: window_title;
 
-  property<[Tile]> tiles: [];
-
   for tile[i] in tiles : TileRec {
-    width: tile_width * 1px;
-    height: tile_height * 1px;
+    image_width: tile_width * 1px;
+    image_height: tile_height * 1px;
     x: mod(i, grid_width) * tile_width * 1px;
     y: floor(i / grid_width) * tile_height * 1px;
-    //image: tile.image;
+    image: tile.image;
   }
 }

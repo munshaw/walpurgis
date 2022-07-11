@@ -22,14 +22,14 @@ impl TilesetDebugIntoIter {
             is_first: true,
             palette,
             pixels: "\
-            X.......\
-            .X......\
-            ..X.....\
-            ...X....\
-            ....X...\
-            .....X..\
-            ......X.\
-            .......X",
+            XXXXXXXX\
+            XX.....X\
+            X.X....X\
+            X..X...X\
+            X...X..X\
+            X....X.X\
+            X.....XX\
+            XXXXXXXX",
         }
     }
 }
