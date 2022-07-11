@@ -17,7 +17,7 @@ fn all_right_size() {
     let expected_size = 4 * width * height;
 
     for p in tileset {
-        assert_eq!(p.1.len(), expected_size)
+        assert_eq!(p.rgba8.len(), expected_size)
     }
 }
 

@@ -1,6 +1,6 @@
 use pixmap::pixmap::{pixmap_to_rgba8, Rgba8};
 use std::collections::HashMap;
-use tileset::tileset::{Sprite, Tileset};
+use tileset::tileset::{TileData, TileId, Tileset};
 
 /// `Tileset` for debugging `Player` manually.
 #[derive(Debug)]
@@ -35,13 +35,16 @@ impl TilesetDebugIntoIter {
 }
 
 impl Iterator for TilesetDebugIntoIter {
-    type Item = Sprite;
+    type Item = TileData;
 
     fn next(&mut self) -> Option<Self::Item> {
         if self.is_first {
             self.is_first = false;
             // If tests pass then unwrap will not fail.
-            Some((0, pixmap_to_rgba8(&self.palette, self.pixels).unwrap()))
+            Some(TileData {
+                tile: TileId::DEBUG,
+                rgba8: pixmap_to_rgba8(&self.palette, self.pixels).unwrap(),
+            })
         } else {
             None
         }
@@ -55,8 +58,8 @@ impl TilesetDebug {
 }
 
 impl IntoIterator for TilesetDebug {
-    type Item = Sprite;
-    type IntoIter = Box<dyn Iterator<Item = Sprite>>;
+    type Item = TileData;
+    type IntoIter = Box<dyn Iterator<Item = TileData>>;
 
     fn into_iter(self) -> Self::IntoIter {
         Box::new(TilesetDebugIntoIter::new())
