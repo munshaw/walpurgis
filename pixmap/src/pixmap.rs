@@ -4,7 +4,7 @@ use std::collections::HashMap;
 pub type Rgba8 = (u8, u8, u8, u8);
 
 /// Errors for `pixmap_to_rgba8()` method.
-#[derive(Debug)]
+#[derive(Debug, Copy, Clone)]
 pub enum Error {
     /// `pixels` contains a character not registered in palette.
     UnregisteredCharacter,

@@ -1,52 +1,77 @@
 use pixmap::pixmap::{pixmap_to_rgba8, Rgba8};
 use std::collections::HashMap;
+use std::slice::Iter;
 use tileset::tileset::{TileData, TileId, Tileset};
+
+pub(crate) const WIDTH: usize = 8;
+pub(crate) const HEIGHT: usize = 8;
+
+pub(crate) const TILES: &[(TileId, &str)] = &[
+    (
+        TileId::BLACK,
+        "\
+        ........\
+        ........\
+        ........\
+        ........\
+        ........\
+        ........\
+        ........\
+        ........",
+    ),
+    (
+        TileId::WHITE,
+        "\
+        ,,,,,,,,\
+        ,,,,,,,,\
+        ,,,,,,,,\
+        ,,,,,,,,\
+        ,,,,,,,,\
+        ,,,,,,,,\
+        ,,,,,,,,\
+        ,,,,,,,,",
+    ),
+];
+
+const PALETTE: &[(char, Rgba8)] = &[
+    ('.', (0x00, 0x00, 0x00, 0xff)),
+    (',', (0xff, 0xff, 0xff, 0xff)),
+];
 
 /// `Tileset` for debugging `Player` manually.
 #[derive(Debug)]
 pub struct TilesetDebug {}
 
 #[derive(Debug)]
-struct TilesetDebugIntoIter {
-    is_first: bool,
+struct TilesetDebugIntoIter<'a> {
     palette: HashMap<char, Rgba8>,
-    pixels: &'static str,
+    tile_iter: Iter<'a, (TileId, &'static str)>,
 }
 
-impl TilesetDebugIntoIter {
+impl<'a> TilesetDebugIntoIter<'a> {
     fn new() -> Self {
         let mut palette = HashMap::new();
-        palette.insert('.', (0x00, 0x00, 0x00, 0xff));
-        palette.insert('X', (0x33, 0x99, 0xcc, 0xff));
+        if !PALETTE.iter().all(|a| palette.insert(a.0, a.1).is_none()) {
+            panic!() // Repeated element. If tests pass, this will not happen.
+        }
         Self {
-            is_first: true,
             palette,
-            pixels: "\
-            XXXXXXXX\
-            XX.....X\
-            X.X....X\
-            X..X...X\
-            X...X..X\
-            X....X.X\
-            X.....XX\
-            XXXXXXXX",
+            tile_iter: TILES.iter(),
         }
     }
 }
 
-impl Iterator for TilesetDebugIntoIter {
+impl<'a> Iterator for TilesetDebugIntoIter<'a> {
     type Item = TileData;
 
     fn next(&mut self) -> Option<Self::Item> {
-        if self.is_first {
-            self.is_first = false;
-            // If tests pass then unwrap will not fail.
-            Some(TileData {
-                tile: TileId::DEBUG,
-                rgba8: pixmap_to_rgba8(&self.palette, self.pixels).unwrap(),
-            })
-        } else {
-            None
+        match self.tile_iter.next() {
+            None => None,
+            Some(tile) => Some(TileData {
+                tile_id: tile.0,
+                // Unregistered character. If tests pass, this will not happen
+                rgba8: pixmap_to_rgba8(&self.palette, tile.1).unwrap(),
+            }),
         }
     }
 }
@@ -68,6 +93,14 @@ impl IntoIterator for TilesetDebug {
 
 impl Tileset for TilesetDebug {
     fn get_tile_size(&self) -> (usize, usize) {
-        (8, 8)
+        (WIDTH, HEIGHT)
+    }
+
+    fn iter(&self) -> Self::IntoIter {
+        Box::new(TilesetDebugIntoIter::new())
+    }
+
+    fn len(&self) -> usize {
+        TILES.len()
     }
 }

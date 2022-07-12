@@ -11,9 +11,4 @@ name = "cartridge-debug"
 version = "0.1.0"
 dependencies = [
  "cartridge",
- "constants",
 ]
-
-[[package]]
-name = "constants"
-version = "0.1.0"

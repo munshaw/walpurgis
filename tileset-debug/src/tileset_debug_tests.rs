@@ -1,8 +1,13 @@
-use crate::tileset_debug::TilesetDebug;
+use crate::tileset_debug::{TilesetDebug, HEIGHT, TILES, WIDTH};
 use tileset::tileset::Tileset;
 
 #[test]
-fn no_bad_character() {
+fn no_duplicate_characters_in_pallete() {
+    let _ = TilesetDebug::new().into_iter();
+}
+
+#[test]
+fn no_unregistered_characters_in_tiles() {
     let tileset = TilesetDebug::new();
 
     tileset.into_iter().for_each(|_| ());
@@ -25,5 +30,26 @@ fn all_right_size() {
 fn get_tile_size_ok() {
     let tileset = TilesetDebug::new();
 
-    assert_eq!((8, 8), tileset.get_tile_size());
+    assert_eq!((WIDTH, HEIGHT), tileset.get_tile_size());
+}
+
+#[test]
+fn len_ok() {
+    let tileset = TilesetDebug::new();
+
+    assert_eq!(TILES.len(), tileset.len())
+}
+
+#[test]
+fn iterator_right_len() {
+    let tileset = TilesetDebug::new();
+
+    assert_eq!(TILES.len(), tileset.iter().count())
+}
+
+#[test]
+fn iter_ok() {
+    let tileset = TilesetDebug::new();
+
+    tileset.iter().for_each(|_| ());
 }
