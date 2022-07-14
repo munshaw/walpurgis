@@ -3,5 +3,5 @@
 version = 3
 
 [[package]]
-name = "walpurgis"
+name = "tileset"
 version = "0.1.0"

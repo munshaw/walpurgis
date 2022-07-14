@@ -27,4 +27,7 @@ pub trait Tileset:
 
     /// Return the number of tiles in this `Tileset`.
     fn len(&self) -> usize;
+
+    /// Return false if this tileset is not empty.
+    fn is_empty(&self) -> bool;
 }

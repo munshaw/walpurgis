@@ -103,4 +103,8 @@ impl Tileset for TilesetDebug {
     fn len(&self) -> usize {
         TILES.len()
     }
+
+    fn is_empty(&self) -> bool {
+        TILES.is_empty()
+    }
 }

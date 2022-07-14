@@ -53,3 +53,8 @@ fn iter_ok() {
 
     tileset.iter().for_each(|_| ());
 }
+
+#[test]
+fn is_empty_ok() {
+    assert!(!TilesetDebug::new().is_empty());
+}
