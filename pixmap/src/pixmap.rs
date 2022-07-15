@@ -11,7 +11,7 @@ pub enum Error {
 }
 
 /// Convert XPM-like data into raw rgba8 data. Dimension information
-/// is not tracked by this class.
+/// is nor processed by this.
 pub fn pixmap_to_rgba8(palette: &HashMap<char, Rgba8>, pixels: &str) -> Result<Vec<u8>, Error> {
     let mut rgba8 = Vec::with_capacity(4 * pixels.chars().count());
     for px in pixels.chars() {
