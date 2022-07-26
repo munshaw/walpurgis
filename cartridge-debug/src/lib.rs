@@ -1,4 +1,4 @@
-/// This module contains a `Cartridge` for debugging `Player`s.
+/// This module contains a `Cartridge` for debugging players.
 pub mod cartridge_debug;
 
 #[cfg(test)]
