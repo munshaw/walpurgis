@@ -9,8 +9,8 @@ slint::include_modules!();
 
 /// Insert a `Cartridge` into this slint-based player, and enjoy your game!
 pub struct PlayerSlint<C: Cartridge> {
-    pub screen: Screen,
-    pub cartridge: C,
+    screen: Screen,
+    cartridge: C,
 }
 
 impl<C: Cartridge> PlayerSlint<C> {

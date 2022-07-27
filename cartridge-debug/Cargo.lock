@@ -5,10 +5,18 @@ version = 3
 [[package]]
 name = "cartridge"
 version = "0.1.0"
+dependencies = [
+ "tileset",
+]
 
 [[package]]
 name = "cartridge-debug"
 version = "0.1.0"
 dependencies = [
  "cartridge",
+ "tileset",
 ]
+
+[[package]]
+name = "tileset"
+version = "0.1.0"

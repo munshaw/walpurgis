@@ -76,6 +76,12 @@ impl<'a> Iterator for TilesetDebugIntoIter<'a> {
     }
 }
 
+impl Default for TilesetDebug {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl TilesetDebug {
     pub fn new() -> Self {
         Self {}

@@ -332,12 +332,16 @@ dependencies = [
 [[package]]
 name = "cartridge"
 version = "0.1.0"
+dependencies = [
+ "tileset",
+]
 
 [[package]]
 name = "cartridge-debug"
 version = "0.1.0"
 dependencies = [
  "cartridge",
+ "tileset",
 ]
 
 [[package]]
