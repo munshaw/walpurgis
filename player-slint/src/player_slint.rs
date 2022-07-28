@@ -3,7 +3,7 @@ use slint::{Image, Rgba8Pixel, SharedPixelBuffer, SharedString, VecModel};
 use std::borrow::Borrow;
 use std::collections::HashMap;
 use std::rc::Rc;
-use tileset::tileset::{TileId, Tileset};
+use tileset::tileset::{TileData, TileId, Tileset};
 
 slint::include_modules!();
 
@@ -14,7 +14,9 @@ pub struct PlayerSlint<C: Cartridge> {
 }
 
 impl<C: Cartridge> PlayerSlint<C> {
-    fn load_tiles<T: Tileset>(tileset: &T) -> HashMap<TileId, SharedPixelBuffer<Rgba8Pixel>> {
+    fn load_tiles<I: Iterator<Item = TileData>, T: Tileset<I>>(
+        tileset: &T,
+    ) -> HashMap<TileId, SharedPixelBuffer<Rgba8Pixel>> {
         let (tile_width, tile_height) = tileset.get_tile_size();
         let mut tile_buffers = HashMap::with_capacity(tileset.len());
         for tile in tileset.iter() {
@@ -26,7 +28,11 @@ impl<C: Cartridge> PlayerSlint<C> {
         tile_buffers
     }
 
-    pub fn new<T: Tileset>(scale: f32, cartridge: C, tileset: T) -> Self {
+    pub fn new<I: Iterator<Item = TileData>, T: Tileset<I>>(
+        scale: f32,
+        cartridge: C,
+        tileset: T,
+    ) -> Self {
         let screen = Screen::new();
         let tile_buffers = Self::load_tiles(&tileset);
 

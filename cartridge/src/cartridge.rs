@@ -11,9 +11,9 @@ pub enum Output {
     Draw(TileId, (usize, usize)),
 }
 
-/// Games should implement this. Used by a player to create final game..
+/// Games implement this. Consumed by a player to create final game.
 pub trait Cartridge {
-    /// Start the game.
+    /// Start the game, return IO channels to communicate with the game loop.
     fn start(&self) -> (Sender<Input>, Receiver<Output>);
 
     /// Size of grid in tiles, returning (width, height).

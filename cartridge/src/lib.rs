@@ -1,4 +1,3 @@
-//! A `Cartridge` is injected into a player to form a game. Implement this
-//! to create a game.
+//! Implement a `Cartridge`, and inject it into a player to create a game!
 
 pub mod cartridge;

@@ -42,8 +42,9 @@ const PALETTE: &[(char, Rgba8)] = &[
 #[derive(Debug)]
 pub struct TilesetDebug {}
 
+/// Tileset iterator for generating rgba8 pixmaps.
 #[derive(Debug)]
-struct TilesetDebugIntoIter<'a> {
+pub struct TilesetDebugIntoIter<'a> {
     palette: HashMap<char, Rgba8>,
     tile_iter: Iter<'a, (TileId, &'static str)>,
 }
@@ -90,20 +91,20 @@ impl TilesetDebug {
 
 impl IntoIterator for TilesetDebug {
     type Item = TileData;
-    type IntoIter = Box<dyn Iterator<Item = TileData>>;
+    type IntoIter = TilesetDebugIntoIter<'static>;
 
     fn into_iter(self) -> Self::IntoIter {
-        Box::new(TilesetDebugIntoIter::new())
+        TilesetDebugIntoIter::new()
     }
 }
 
-impl Tileset for TilesetDebug {
+impl Tileset<TilesetDebugIntoIter<'static>> for TilesetDebug {
     fn get_tile_size(&self) -> (usize, usize) {
         (WIDTH, HEIGHT)
     }
 
     fn iter(&self) -> Self::IntoIter {
-        Box::new(TilesetDebugIntoIter::new())
+        TilesetDebugIntoIter::new()
     }
 
     fn len(&self) -> usize {
