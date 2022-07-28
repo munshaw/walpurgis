@@ -38,7 +38,7 @@ const PALETTE: &[(char, Rgba8)] = &[
     (',', (0xff, 0xff, 0xff, 0xff)),
 ];
 
-/// `Tileset` for debugging player manually.
+/// `Tileset` implementation for use with `CartridgeDebug`.
 #[derive(Debug)]
 pub struct TilesetDebug {}
 

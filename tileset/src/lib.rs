@@ -1,4 +1,4 @@
-/// Module containing `Tileset` trait, and the `TileId` enum. A `Tileset` contains image
-/// data for tiles and sprites that can be displayed by a player. `TileId` lists all
-/// of the tiles and sprites that are possibly implemented by a `TileSet`.
+//! `Tileset` produces pixmaps that a player can render. Images that the tileset
+//! may contain are identified by the `TileId` enum. Implement this to create a tileset.
+
 pub mod tileset;

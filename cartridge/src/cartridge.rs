@@ -11,7 +11,7 @@ pub enum Output {
     Draw(TileId, (usize, usize)),
 }
 
-/// Games should implement this. Used by a player to create final gui.
+/// Games should implement this. Used by a player to create final game..
 pub trait Cartridge {
     /// Start the game.
     fn start(&self) -> (Sender<Input>, Receiver<Output>);

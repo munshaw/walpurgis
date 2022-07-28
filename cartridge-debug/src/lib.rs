@@ -1,4 +1,6 @@
-/// This module contains a `Cartridge` for debugging players.
+//! `CartridgeDebug` is an implementation of `Cartridge` designed to test
+//! players.
+
 pub mod cartridge_debug;
 
 mod game_loop;

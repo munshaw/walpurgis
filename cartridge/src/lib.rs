@@ -1,3 +1,4 @@
-/// Module containing `Cartirdge` trait. A cartridge represents some game. It needs to be
-/// read by a player via dependency injection to create the final app.
+//! A `Cartridge` is injected into a player to form a game. Implement this
+//! to create a game.
+
 pub mod cartridge;

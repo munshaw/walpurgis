@@ -5,11 +5,10 @@ use std::sync::mpsc::{channel, Receiver, Sender};
 use std::thread;
 
 pub(crate) const WINDOW_TITLE: &str = "Debug Cartridge";
-
 pub(crate) const GRID_WIDTH: usize = 20;
 pub(crate) const GRID_HEIGHT: usize = 18;
 
-/// `Cartridge` for debugging players.
+/// `Cartridge` implementation for debugging players.
 #[derive(Debug)]
 pub struct CartridgeDebug<G: GameLoop> {
     phantom: PhantomData<G>,
