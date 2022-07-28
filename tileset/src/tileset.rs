@@ -16,9 +16,7 @@ pub struct TileData {
 }
 
 /// `Tileset`s implement this. Consumed by `Cartridge`s.
-pub trait Tileset<I: Iterator<Item = TileData>>:
-    IntoIterator<Item = TileData, IntoIter = I>
-{
+pub trait Tileset<I: Iterator<Item = TileData>>: IntoIterator<Item = TileData> {
     /// Tile size in pixels, returning (width, height).
     fn get_tile_size(&self) -> (usize, usize);
 

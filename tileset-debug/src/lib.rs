@@ -2,5 +2,7 @@
 
 pub mod tileset_debug;
 
+mod data;
+
 #[cfg(test)]
 mod tileset_debug_tests;
