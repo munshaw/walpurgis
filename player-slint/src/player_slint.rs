@@ -28,6 +28,37 @@ impl<C: Cartridge> PlayerSlint<C> {
         tile_buffers
     }
 
+    fn set_properties(
+        screen: &Screen,
+        title: &str,
+        tile_height: usize,
+        tile_width: usize,
+        grid_width: usize,
+        grid_height: usize,
+        scale: f32,
+    ) {
+        screen.set_window_title(SharedString::from(title));
+        let tile_width = (tile_width as f32 * scale) as i32;
+        let tile_height = (tile_height as f32 * scale) as i32;
+        screen.set_tile_width(tile_width);
+        screen.set_tile_height(tile_height);
+        screen.set_grid_width(grid_width as i32);
+        screen.set_grid_height(grid_height as i32);
+    }
+
+    fn fill_tile_model(
+        tile_buffers: HashMap<TileId, SharedPixelBuffer<Rgba8Pixel>>,
+        grid_width: usize,
+        grid_height: usize,
+    ) -> Vec<Tile> {
+        vec![
+            Tile {
+                image: Image::from_rgba8(tile_buffers[&TileId::BLACK].borrow().clone())
+            };
+            (grid_width * grid_height) as usize
+        ]
+    }
+
     pub fn new<I: Iterator<Item = TileData>, T: Tileset<I>>(
         scale: f32,
         cartridge: C,
@@ -39,22 +70,17 @@ impl<C: Cartridge> PlayerSlint<C> {
         let (tile_width, tile_height) = tileset.get_tile_size();
         let (grid_width, grid_height) = cartridge.get_grid_size();
 
-        screen.set_window_title(SharedString::from(cartridge.get_window_title()));
-        let tile_width = (tile_width as f32 * scale) as i32;
-        let tile_height = (tile_height as f32 * scale) as i32;
-        screen.set_tile_width(tile_width);
-        screen.set_tile_height(tile_height);
-        screen.set_grid_width(grid_width as i32);
-        screen.set_grid_height(grid_height as i32);
+        Self::set_properties(
+            &screen,
+            cartridge.get_window_title(),
+            tile_height,
+            tile_width,
+            grid_height,
+            grid_width,
+            scale,
+        );
 
-        let mut tiles: Vec<Tile> = vec![
-            Tile {
-                image: Image::from_rgba8(tile_buffers[&TileId::BLACK].borrow().clone())
-            };
-            (grid_width * grid_height) as usize
-        ];
-        tiles[33].image = Image::from_rgba8(tile_buffers[&TileId::WHITE].borrow().clone());
-
+        let mut tiles = Self::fill_tile_model(tile_buffers, grid_width, grid_height);
         let tiles_model = Rc::new(VecModel::from(tiles));
         screen.set_tiles(tiles_model.clone().into());
 
