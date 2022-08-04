@@ -10,6 +10,8 @@ build = "build.rs"
 slint = "0.2.5"
 cartridge = { path = "../cartridge" }
 tileset = { path = "../tileset" }
+cartridge-debug = { path = "../cartridge-debug" }
+tileset-debug = { path = "../tileset-debug" }
 
 [build-dependencies]
 slint-build = "0.2.4"

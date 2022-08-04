@@ -2,7 +2,10 @@ use std::sync::mpsc::{Receiver, Sender};
 use tileset::tileset::TileId;
 
 /// Commands sent from the player to the cartridge.
-pub enum Input {}
+pub enum Input {
+    /// TThe user typed a character.
+    Char(char),
+}
 
 /// Commands sent from the cartridge to the player.
 pub enum Output {

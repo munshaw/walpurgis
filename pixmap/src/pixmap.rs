@@ -1,12 +1,14 @@
 use std::collections::HashMap;
+use thiserror::Error;
 
 /// 8-bit Rgba values in that order.
 pub type Rgba8 = (u8, u8, u8, u8);
 
 /// Errors for `pixmap_to_rgba8()` method.
-#[derive(Debug, Copy, Clone)]
+#[derive(Error, Debug)]
 pub enum Error {
-    /// `pixels` contains a character not registered in palette.
+    /// `pixels` contains a character not registered in `palette`.
+    #[error("`pixels` contains a character not registered in `palette`")]
     UnregisteredCharacter,
 }
 

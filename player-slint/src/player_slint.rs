@@ -1,9 +1,14 @@
 use cartridge::cartridge::Cartridge;
+use cartridge_debug::cartridge_debug::CartridgeDebug;
+use cartridge_debug::game_loop::{GameLoop, GameLoopImpl};
 use slint::{Image, Rgba8Pixel, SharedPixelBuffer, SharedString, VecModel};
 use std::borrow::Borrow;
 use std::collections::HashMap;
 use std::rc::Rc;
 use tileset::tileset::{TileData, TileId, Tileset};
+use tileset_debug::tileset_debug::TilesetDebug;
+
+const SCALE: f32 = 2.0;
 
 slint::include_modules!();
 
@@ -90,5 +95,11 @@ impl<C: Cartridge> PlayerSlint<C> {
     /// Start playing ya game!
     pub fn run(&self) {
         self.screen.run();
+    }
+}
+
+impl Default for PlayerSlint<CartridgeDebug<GameLoopImpl>> {
+    fn default() -> Self {
+        Self::new(SCALE, CartridgeDebug::default(), TilesetDebug::default())
     }
 }

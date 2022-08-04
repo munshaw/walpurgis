@@ -4,7 +4,7 @@ use std::collections::HashMap;
 use tileset::tileset::{TileData, Tileset};
 
 /// `Tileset` implementation for use with `CartridgeDebug`.
-#[derive(Debug)]
+#[derive(Debug, Default)]
 pub struct TilesetDebug {}
 
 /// `Tileset` iterator for generating rgba8 pixmaps.
@@ -14,11 +14,11 @@ pub struct TilesetDebugIntoIter {
     index: usize,
 }
 
-impl TilesetDebugIntoIter {
-    fn new() -> Self {
+impl Default for TilesetDebugIntoIter {
+    fn default() -> Self {
         let mut palette = HashMap::new();
         if !PALETTE.iter().all(|a| palette.insert(a.0, a.1).is_none()) {
-            panic!() // Repeated element. If tests pass, this will not happen.
+            panic!() // Repeated element. This will not fail if tests pass.
         }
         Self { palette, index: 0 }
     }
@@ -42,24 +42,12 @@ impl Iterator for TilesetDebugIntoIter {
     }
 }
 
-impl Default for TilesetDebug {
-    fn default() -> Self {
-        Self::new()
-    }
-}
-
-impl TilesetDebug {
-    pub fn new() -> Self {
-        Self {}
-    }
-}
-
 impl IntoIterator for TilesetDebug {
     type Item = TileData;
     type IntoIter = TilesetDebugIntoIter;
 
     fn into_iter(self) -> Self::IntoIter {
-        TilesetDebugIntoIter::new()
+        TilesetDebugIntoIter::default()
     }
 }
 
@@ -69,7 +57,7 @@ impl Tileset<TilesetDebugIntoIter> for TilesetDebug {
     }
 
     fn iter(&self) -> Self::IntoIter {
-        TilesetDebugIntoIter::new()
+        TilesetDebugIntoIter::default()
     }
 
     fn len(&self) -> usize {

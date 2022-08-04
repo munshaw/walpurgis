@@ -20,14 +20,8 @@ impl Default for CartridgeDebug<GameLoopImpl> {
     }
 }
 
-impl CartridgeDebug<GameLoopImpl> {
-    pub fn new() -> Self {
-        Self::new_root()
-    }
-}
-
 impl<G: GameLoop> CartridgeDebug<G> {
-    pub(crate) fn new_root() -> Self {
+    pub(crate) fn new() -> Self {
         Self {
             phantom: Default::default(),
         }
