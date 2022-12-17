@@ -6,28 +6,18 @@ use tileset::tileset::TileId;
 
 #[automock]
 pub trait GameLoop {
-    fn new(input: Receiver<Input>, output: Sender<Output>) -> Self;
-    fn start(&self);
+    fn start(&self, input: Receiver<Input>, output: Sender<Output>);
 }
 
-#[derive(Debug)]
-pub struct GameLoopImpl {
-    input: Receiver<Input>,
-    output: Sender<Output>,
-}
+#[derive(Debug, Default)]
+pub struct GameLoopImpl {}
 
 impl GameLoop for GameLoopImpl {
-    fn new(input: Receiver<Input>, output: Sender<Output>) -> Self {
-        Self { input, output }
-    }
-
-    fn start(&self) {
+    fn start(&self, input: Receiver<Input>, output: Sender<Output>) {
         // Cannot gracefully exit without UI contact.
-        self.output
-            .send(Output::Draw(TileId::WHITE, (2, 3)))
-            .unwrap();
+        output.send(Output::Draw(TileId::WHITE, (2, 3))).unwrap();
 
-        if let Input::Char(c) = self.input.recv().unwrap() {
+        if let Input::Char(c) = input.recv().unwrap() {
             println!("User input: {}", c);
         }
     }

@@ -1,6 +1,5 @@
 use crate::game_loop::{GameLoop, GameLoopImpl};
 use cartridge::cartridge::{Cartridge, Input, Output};
-use std::marker::PhantomData;
 use std::sync::mpsc::{channel, Receiver, Sender};
 use std::thread;
 
@@ -10,30 +9,33 @@ pub(crate) const GRID_HEIGHT: usize = 18;
 
 /// `Cartridge` implementation for debugging players.
 #[derive(Debug)]
-pub struct CartridgeDebug<G: GameLoop> {
-    phantom: PhantomData<G>,
+pub struct CartridgeDebug<G: 'static + GameLoop + Send> {
+    game_loop: Option<G>,
 }
 
 impl Default for CartridgeDebug<GameLoopImpl> {
     fn default() -> Self {
-        Self::new()
+        Self::new(GameLoopImpl::default())
     }
 }
 
-impl<G: GameLoop> CartridgeDebug<G> {
-    pub(crate) fn new() -> Self {
+impl<G: 'static + GameLoop + Send> CartridgeDebug<G> {
+    pub(crate) fn new(game_loop: G) -> Self {
         Self {
-            phantom: Default::default(),
+            game_loop: Some(game_loop),
         }
     }
 }
 
-impl<G: GameLoop> Cartridge for CartridgeDebug<G> {
-    fn start(&self) -> (Sender<Input>, Receiver<Output>) {
+impl<G: GameLoop + Send> Cartridge for CartridgeDebug<G> {
+    fn start(&mut self) -> (Sender<Input>, Receiver<Output>) {
         let (to_player, from_cartridge) = channel();
         let (to_cartridge, from_player) = channel();
 
-        thread::spawn(move || G::new(from_player, to_player).start());
+        // TODO: Don't need this unwrap!
+        let game_loop = self.game_loop.take().unwrap();
+
+        thread::spawn(move || game_loop.start(from_player, to_player));
 
         (to_cartridge, from_cartridge)
     }

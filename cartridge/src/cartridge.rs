@@ -17,7 +17,7 @@ pub enum Output {
 /// Games implement this. Consumed by a player to create final game.
 pub trait Cartridge {
     /// Start the game, return IO channels to communicate with the game loop.
-    fn start(&self) -> (Sender<Input>, Receiver<Output>);
+    fn start(&mut self) -> (Sender<Input>, Receiver<Output>);
 
     /// Size of grid in tiles, returning (width, height).
     fn get_grid_size(&self) -> (usize, usize);
